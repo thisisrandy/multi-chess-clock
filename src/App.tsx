@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   CssBaseline,
   IconButton,
@@ -8,6 +9,7 @@ import {
 } from "@mui/material";
 import { blueGrey } from "@mui/material/colors";
 import { GitHub } from "@mui/icons-material";
+import { useStateWithLocalStorage } from "./hooks/useStateWithLocalStorage";
 import NoSleep from "nosleep.js";
 
 /* enable NoSleep per https://github.com/richtr/NoSleep.js#usage */
@@ -21,7 +23,38 @@ document.addEventListener(
   false
 );
 
+interface Player {
+  /**
+   * The player's name
+   */
+  name: string;
+  /**
+   * The player's place in the play order. 0-indexed
+   */
+  order: number;
+  /**
+   * The cumulative time that it has been this player's turn this game
+   */
+  timePlayed: number;
+}
+
 function App() {
+  const [gameActive, setGameActive] = useStateWithLocalStorage(
+    "gameActive",
+    false
+  );
+  const [players, setPlayers] = useStateWithLocalStorage<Player[]>(
+    "players",
+    []
+  );
+  const [playTimeLimit, setPlayTimeLimit] = useStateWithLocalStorage(
+    "playTimeLimit",
+    30
+  );
+  // note that we always want the page to load in a paused state, so we're not
+  // saving this to localStorage
+  const [timePaused, setTimerPaused] = useState(true);
+
   const theme = unstable_createMuiStrictModeTheme({
     palette: { mode: "dark", primary: blueGrey },
   });
