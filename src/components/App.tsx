@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { blueGrey } from "@mui/material/colors";
 import { GitHub } from "@mui/icons-material";
-import { useStateWithLocalStorage } from "./hooks/useStateWithLocalStorage";
+import { useStateWithLocalStorage } from "../hooks/useStateWithLocalStorage";
 import NoSleep from "nosleep.js";
 
 /* enable NoSleep per https://github.com/richtr/NoSleep.js#usage */
