@@ -8,6 +8,18 @@ import {
 } from "@mui/material";
 import { blueGrey } from "@mui/material/colors";
 import { GitHub } from "@mui/icons-material";
+import NoSleep from "nosleep.js";
+
+/* enable NoSleep per https://github.com/richtr/NoSleep.js#usage */
+const noSleep = new NoSleep();
+document.addEventListener(
+  "click",
+  function enableNoSleep() {
+    document.removeEventListener("click", enableNoSleep, false);
+    noSleep.enable();
+  },
+  false
+);
 
 function App() {
   const theme = unstable_createMuiStrictModeTheme({
