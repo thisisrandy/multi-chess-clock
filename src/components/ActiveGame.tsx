@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Paper,
@@ -34,6 +34,11 @@ function formatTime(seconds: number): string {
   )}:${String(ss).padStart(2, "0")}`;
 }
 
+/**
+ * Timer update interval in ms
+ */
+const intervalPeriod = 100;
+
 export default function ActiveGame({
   setGameActive,
   players,
@@ -57,6 +62,24 @@ export default function ActiveGame({
   const handlePause = () => setTimerPaused((paused) => !paused);
   const handleCloseStopDialog = () => setStopDialogOpen(false);
   const handleStop = () => setGameActive(false);
+
+  useEffect(() => {
+    if (timerPaused) {
+      return;
+    }
+    const timer = setInterval(
+      () =>
+        setPlayers((players) => [
+          {
+            ...players[0],
+            timePlayed: players[0].timePlayed + intervalPeriod / 1000,
+          },
+          ...players.slice(1, players.length),
+        ]),
+      intervalPeriod
+    );
+    return () => clearInterval(timer);
+  }, [timerPaused, setPlayers]);
 
   return (
     <>
