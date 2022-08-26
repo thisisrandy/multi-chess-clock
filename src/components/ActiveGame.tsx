@@ -99,7 +99,12 @@ export default function ActiveGame({
             <IconButton onClick={handlePause}>
               <PauseCircleIcon />
             </IconButton>
-            <IconButton onClick={() => setStopDialogOpen(true)}>
+            <IconButton
+              onClick={() => {
+                setTimerPaused(true);
+                setStopDialogOpen(true);
+              }}
+            >
               <StopCircleIcon />
             </IconButton>
           </span>
