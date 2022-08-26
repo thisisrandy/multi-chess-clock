@@ -133,7 +133,7 @@ export default function ActiveGame({
                 alignItems: "center",
                 justifyContent: "center",
                 backgroundColor:
-                  player.timePlayed > playTimeLimit ? "#a63030" : "",
+                  player.timePlayed > playTimeLimit * 60 ? "#a63030" : "",
               }}
             >
               <Typography variant="body1">{player.name}</Typography>
