@@ -8,4 +8,8 @@ export interface Player {
    * seconds
    */
   timePlayed: number;
+  /**
+   * Whether or not this player has exceeded their allotted play time
+   */
+  isOverTime: boolean;
 }

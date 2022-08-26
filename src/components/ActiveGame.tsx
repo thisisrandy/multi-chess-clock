@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import {
+  Alert,
   Button,
   Paper,
   IconButton,
@@ -7,6 +8,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Snackbar,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -51,6 +53,8 @@ export default function ActiveGame({
   // saving this to localStorage
   const [timerPaused, setTimerPaused] = useState(true);
   const [stopDialogOpen, setStopDialogOpen] = useState(false);
+  const [overageSnackOpen, setOverageSnackOpen] = useState(false);
+  const [overageSnackMessage, setOverageSnackMessage] = useState("");
 
   const handlePunchTimer = () => {
     setPlayers((players) => [...players.slice(1, players.length), players[0]]);
@@ -64,6 +68,9 @@ export default function ActiveGame({
   const handlePause = () => setTimerPaused((paused) => !paused);
   const handleCloseStopDialog = () => setStopDialogOpen(false);
   const handleStop = () => setGameActive(false);
+  const handleOverageSnackClose = () => {
+    setOverageSnackOpen(false);
+  };
 
   useEffect(() => {
     if (timerPaused) {
@@ -71,17 +78,29 @@ export default function ActiveGame({
     }
     const timer = setInterval(
       () =>
-        setPlayers((players) => [
-          {
-            ...players[0],
-            timePlayed: players[0].timePlayed + intervalPeriod / 1000,
-          },
-          ...players.slice(1, players.length),
-        ]),
+        setPlayers((players) => {
+          const timePlayed = players[0].timePlayed + intervalPeriod / 1000;
+          let isOverTime = players[0].isOverTime;
+          if (timePlayed > playTimeLimit * 60 && !isOverTime) {
+            setOverageSnackMessage(
+              `${players[0].name} exceeded their allotted play time of ${playTimeLimit} minutes`
+            );
+            setOverageSnackOpen(true);
+            isOverTime = true;
+          }
+          return [
+            {
+              ...players[0],
+              timePlayed,
+              isOverTime,
+            },
+            ...players.slice(1, players.length),
+          ];
+        }),
       intervalPeriod
     );
     return () => clearInterval(timer);
-  }, [timerPaused, setPlayers]);
+  }, [timerPaused, setPlayers, playTimeLimit]);
 
   return (
     <>
@@ -233,6 +252,21 @@ export default function ActiveGame({
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Overage snackbar */}
+      <Snackbar
+        open={overageSnackOpen}
+        autoHideDuration={10000}
+        onClose={handleOverageSnackClose}
+      >
+        <Alert
+          onClose={handleOverageSnackClose}
+          severity={"error"}
+          style={{ width: "100%" }}
+        >
+          {overageSnackMessage}
+        </Alert>
+      </Snackbar>
     </>
   );
 }

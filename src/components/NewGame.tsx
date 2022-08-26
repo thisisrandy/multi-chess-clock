@@ -44,7 +44,7 @@ export default function NewGame({
   };
   const handleStartNewGame = () => {
     setPlayers((players) =>
-      players.map((p) => ({ name: p.name, timePlayed: 0 }))
+      players.map((p) => ({ name: p.name, timePlayed: 0, isOverTime: false }))
     );
     setGameActive(true);
     handleNewGameDialogClose();
@@ -52,7 +52,7 @@ export default function NewGame({
   const addPlayer = () => {
     setPlayers((players) => [
       ...players,
-      { name: newPlayerName, timePlayed: 0 },
+      { name: newPlayerName, timePlayed: 0, isOverTime: false },
     ]);
     handleAddPlayerDialogClose();
   };
