@@ -93,6 +93,7 @@ export default function ActiveGame({
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          padding: "5px 0px",
         }}
       >
         <div
