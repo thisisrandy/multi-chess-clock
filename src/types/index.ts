@@ -4,7 +4,8 @@ export interface Player {
    */
   name: string;
   /**
-   * The cumulative time that it has been this player's turn this game
+   * The cumulative time that it has been this player's turn this game, in
+   * seconds
    */
   timePlayed: number;
 }
