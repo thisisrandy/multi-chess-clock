@@ -27,10 +27,11 @@ function formatTime(seconds: number): string {
   seconds %= 3600;
   const mm = Math.floor(seconds / 60);
   seconds %= 60;
+  const ss = Math.floor(seconds);
   return `${String(hh).padStart(2, "0")}:${String(mm).padStart(
     2,
     "0"
-  )}:${String(seconds).padStart(2, "0")}`;
+  )}:${String(ss).padStart(2, "0")}`;
 }
 
 export default function ActiveGame({
