@@ -154,7 +154,7 @@ export default function NewGame({
             variant="contained"
             onClick={handleStartNewGame}
             style={{ marginRight: 20 }}
-            disabled={!playTimeIsValid}
+            disabled={!playTimeIsValid || players.length === 0}
           >
             Start Playing
           </Button>
