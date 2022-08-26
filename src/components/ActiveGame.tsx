@@ -22,6 +22,17 @@ interface Props {
   playTimeLimit: number;
 }
 
+function formatTime(seconds: number): string {
+  const hh = Math.floor(seconds / 3600);
+  seconds %= 3600;
+  const mm = Math.floor(seconds / 60);
+  seconds %= 60;
+  return `${String(hh).padStart(2, "0")}:${String(mm).padStart(
+    2,
+    "0"
+  )}:${String(seconds).padStart(2, "0")}`;
+}
+
 export default function ActiveGame({
   setGameActive,
   players,
@@ -92,6 +103,46 @@ export default function ActiveGame({
               <StopCircleIcon />
             </IconButton>
           </span>
+        </div>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {players.map((player, i) => (
+            <Paper
+              key={i}
+              elevation={2}
+              style={{
+                width: "90%",
+                margin: 5,
+                marginTop: 0,
+                padding: 5,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor:
+                  player.timePlayed > playTimeLimit ? "#a63030" : "",
+              }}
+            >
+              <Typography variant="body1">{player.name}</Typography>
+              <Typography variant="subtitle2">
+                {formatTime(player.timePlayed)}
+                {i === 0
+                  ? ` (${formatTime(
+                      players
+                        .map((p) => p.timePlayed)
+                        .reduce((acc, time) => acc + time, 0)
+                    )} total)`
+                  : ""}
+              </Typography>
+            </Paper>
+          ))}
         </div>
       </Paper>
 
