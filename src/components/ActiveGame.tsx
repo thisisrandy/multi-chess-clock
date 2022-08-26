@@ -198,7 +198,7 @@ export default function ActiveGame({
             onClick={handleStop}
             style={{ marginRight: 20 }}
           >
-            Stop the game
+            End the game
           </Button>
           <Button variant="contained" onClick={handleCloseStopDialog}>
             Cancel
