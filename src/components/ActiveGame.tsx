@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { Player } from "../types";
@@ -104,13 +105,30 @@ export default function ActiveGame({
             justifyContent: "center",
           }}
         >
-          <IconButton
-            onClick={handlePunchTimer}
-            style={{ width: "60%", height: "60%" }}
-            disabled={timerPaused}
+          <Tooltip
+            title={
+              timerPaused
+                ? "The timer is paused. Unpause it to continue play"
+                : "Punch the clock to advance to the next player"
+            }
+            arrow
+            disableInteractive
           >
-            <TimerIcon style={{ width: "100%", height: "100%" }} />
-          </IconButton>
+            <span
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <IconButton
+                onClick={handlePunchTimer}
+                style={{ width: "60%", height: "60%" }}
+                disabled={timerPaused}
+              >
+                <TimerIcon style={{ width: "100%", height: "100%" }} />
+              </IconButton>
+            </span>
+          </Tooltip>
           <span
             style={{
               display: "flex",
@@ -118,20 +136,29 @@ export default function ActiveGame({
               alignItems: "center",
             }}
           >
-            <IconButton onClick={handleGoBackward}>
-              <UndoIcon />
-            </IconButton>
-            <IconButton onClick={handlePause}>
-              <PauseCircleIcon />
-            </IconButton>
-            <IconButton
-              onClick={() => {
-                setTimerPaused(true);
-                setStopDialogOpen(true);
-              }}
+            <Tooltip title="Return to the previous player" disableInteractive>
+              <IconButton onClick={handleGoBackward}>
+                <UndoIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip
+              title={timerPaused ? "Restart the timer" : "Pause the timer"}
+              disableInteractive
             >
-              <StopCircleIcon />
-            </IconButton>
+              <IconButton onClick={handlePause}>
+                <PauseCircleIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="End the game" disableInteractive>
+              <IconButton
+                onClick={() => {
+                  setTimerPaused(true);
+                  setStopDialogOpen(true);
+                }}
+              >
+                <StopCircleIcon />
+              </IconButton>
+            </Tooltip>
           </span>
         </div>
         <div
