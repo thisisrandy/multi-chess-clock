@@ -13,6 +13,7 @@ import {
   TextField,
   Tooltip,
   Typography,
+  Paper,
 } from "@mui/material";
 
 interface Props {
@@ -74,14 +75,27 @@ export default function NewGame({
   return (
     <>
       {/* Base interface */}
-      <Tooltip title="Start a new game" arrow disableInteractive>
-        <IconButton
-          onClick={() => setNewGameDialogOpen(true)}
-          style={{ width: "90%", height: "90%" }}
-        >
-          <AddCircleIcon style={{ width: "100%", height: "100%" }} />
-        </IconButton>
-      </Tooltip>
+      <Paper
+        elevation={5}
+        style={{
+          width: 300,
+          height: 300,
+          margin: 20,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Tooltip title="Start a new game" arrow disableInteractive>
+          <IconButton
+            onClick={() => setNewGameDialogOpen(true)}
+            style={{ width: "90%", height: "90%" }}
+          >
+            <AddCircleIcon style={{ width: "100%", height: "100%" }} />
+          </IconButton>
+        </Tooltip>
+      </Paper>
 
       {/* New game dialog */}
       <Dialog

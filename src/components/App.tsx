@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   CssBaseline,
   IconButton,
-  Paper,
   ThemeProvider,
   Tooltip,
   unstable_createMuiStrictModeTheme,
@@ -59,32 +58,17 @@ function App() {
           justifyContent: "center",
         }}
       >
-        <Paper
-          elevation={5}
-          // TODO: make this responsive. may want to fold into lower-level
-          // components, which probably require differently sized containers
-          style={{
-            width: 300,
-            height: 300,
-            margin: 20,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {(gameActive && <ActiveGame />) || (
-            <NewGame
-              {...{
-                players,
-                setPlayers,
-                playTimeLimit,
-                setPlayTimeLimit,
-                setGameActive,
-              }}
-            />
-          )}
-        </Paper>
+        {(gameActive && <ActiveGame />) || (
+          <NewGame
+            {...{
+              players,
+              setPlayers,
+              playTimeLimit,
+              setPlayTimeLimit,
+              setGameActive,
+            }}
+          />
+        )}
         <Tooltip
           title="See the code on github.com"
           placement="top"
