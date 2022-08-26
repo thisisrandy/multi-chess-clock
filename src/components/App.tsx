@@ -12,7 +12,7 @@ import { useStateWithLocalStorage } from "../hooks/useStateWithLocalStorage";
 import NoSleep from "nosleep.js";
 import NewGame from "./NewGame";
 import ActiveGame from "./ActiveGame";
-import { Player } from "../types/index";
+import { Player } from "../types";
 
 /* enable NoSleep per https://github.com/richtr/NoSleep.js#usage */
 const noSleep = new NoSleep();
