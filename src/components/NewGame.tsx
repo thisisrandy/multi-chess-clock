@@ -183,7 +183,7 @@ export default function NewGame({
             label="New player name"
             value={newPlayerName}
             onChange={(e) => setNewPlayerName(e.target.value)}
-            autoFocus={true}
+            autoFocus
             onKeyPress={(e) => {
               if (e.key === "Enter" && newPlayerNameIsValid) {
                 addPlayer();
