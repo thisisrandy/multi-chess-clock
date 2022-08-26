@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   CssBaseline,
   IconButton,
@@ -38,9 +37,6 @@ function App() {
     "playTimeLimit",
     30
   );
-  // note that we always want the page to load in a paused state, so we're not
-  // saving this to localStorage
-  const [timerPaused, setTimerPaused] = useState(true);
 
   const theme = unstable_createMuiStrictModeTheme({
     palette: { mode: "dark", primary: blueGrey },
@@ -58,7 +54,11 @@ function App() {
           justifyContent: "center",
         }}
       >
-        {(gameActive && <ActiveGame />) || (
+        {(gameActive && (
+          <ActiveGame
+            {...{ setGameActive, players, setPlayers, playTimeLimit }}
+          />
+        )) || (
           <NewGame
             {...{
               players,
