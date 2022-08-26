@@ -80,7 +80,7 @@ export default function NewGame({
         style={{
           width: 300,
           height: 300,
-          margin: 20,
+          margin: "10px 0px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

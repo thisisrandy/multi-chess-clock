@@ -88,7 +88,7 @@ export default function ActiveGame({
         elevation={5}
         style={{
           width: 300,
-          margin: 20,
+          margin: "10px 0px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
