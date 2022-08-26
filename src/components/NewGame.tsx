@@ -33,6 +33,7 @@ export default function NewGame({
   const [newGameDialogOpen, setNewGameDialogOpen] = useState(false);
   const [addPlayerDialogOpen, setAddPlayerDialogOpen] = useState(false);
   const [newPlayerName, setNewPlayerName] = useState("");
+  const [newPlayerNameIsValid, setNewPlayerNameIsValid] = useState(false);
   const [playTimeIsValid, setPlayTimeIsValid] = useState(true);
 
   const handleNewGameDialogClose = () => setNewGameDialogOpen(false);
@@ -64,6 +65,10 @@ export default function NewGame({
     () =>
       setPlayTimeIsValid(Number.isInteger(playTimeLimit) && playTimeLimit > 0),
     [playTimeLimit]
+  );
+  useEffect(
+    () => setNewPlayerNameIsValid(newPlayerName.length > 0),
+    [newPlayerName]
   );
 
   return (
@@ -179,6 +184,11 @@ export default function NewGame({
             value={newPlayerName}
             onChange={(e) => setNewPlayerName(e.target.value)}
             autoFocus={true}
+            onKeyPress={(e) => {
+              if (e.key === "Enter" && newPlayerNameIsValid) {
+                addPlayer();
+              }
+            }}
           />
         </DialogContent>
         <DialogActions
@@ -193,7 +203,7 @@ export default function NewGame({
             variant="contained"
             onClick={addPlayer}
             style={{ marginRight: 20 }}
-            disabled={newPlayerName === ""}
+            disabled={!newPlayerNameIsValid}
           >
             Add Player
           </Button>
