@@ -11,6 +11,9 @@ import { blueGrey } from "@mui/material/colors";
 import { GitHub } from "@mui/icons-material";
 import { useStateWithLocalStorage } from "../hooks/useStateWithLocalStorage";
 import NoSleep from "nosleep.js";
+import NewGame from "./NewGame";
+import ActiveGame from "./ActiveGame";
+import { Player } from "../types/index";
 
 /* enable NoSleep per https://github.com/richtr/NoSleep.js#usage */
 const noSleep = new NoSleep();
@@ -22,21 +25,6 @@ document.addEventListener(
   },
   false
 );
-
-interface Player {
-  /**
-   * The player's name
-   */
-  name: string;
-  /**
-   * The player's place in the play order. 0-indexed
-   */
-  order: number;
-  /**
-   * The cumulative time that it has been this player's turn this game
-   */
-  timePlayed: number;
-}
 
 function App() {
   const [gameActive, setGameActive] = useStateWithLocalStorage(
@@ -53,7 +41,7 @@ function App() {
   );
   // note that we always want the page to load in a paused state, so we're not
   // saving this to localStorage
-  const [timePaused, setTimerPaused] = useState(true);
+  const [timerPaused, setTimerPaused] = useState(true);
 
   const theme = unstable_createMuiStrictModeTheme({
     palette: { mode: "dark", primary: blueGrey },
@@ -73,9 +61,30 @@ function App() {
       >
         <Paper
           elevation={5}
-          // TODO: make this responsive
-          style={{ width: 500, height: 500, margin: 20 }}
-        ></Paper>
+          // TODO: make this responsive. may want to fold into lower-level
+          // components, which probably require differently sized containers
+          style={{
+            width: 300,
+            height: 300,
+            margin: 20,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {(gameActive && <ActiveGame />) || (
+            <NewGame
+              {...{
+                players,
+                setPlayers,
+                playTimeLimit,
+                setPlayTimeLimit,
+                setGameActive,
+              }}
+            />
+          )}
+        </Paper>
         <Tooltip
           title="See the code on github.com"
           placement="top"
