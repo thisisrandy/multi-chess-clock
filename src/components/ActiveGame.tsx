@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { Player } from "../types";
 import PauseCircleIcon from "@mui/icons-material/PauseCircle";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import StopCircleIcon from "@mui/icons-material/StopCircle";
 import TimerIcon from "@mui/icons-material/Timer";
 import UndoIcon from "@mui/icons-material/Undo";
@@ -146,7 +147,7 @@ export default function ActiveGame({
               disableInteractive
             >
               <IconButton onClick={handlePause}>
-                <PauseCircleIcon />
+                {timerPaused ? <PlayCircleIcon /> : <PauseCircleIcon />}
               </IconButton>
             </Tooltip>
             <Tooltip title="End the game" disableInteractive>
