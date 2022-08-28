@@ -260,11 +260,7 @@ export default function ActiveGame({
       </Dialog>
 
       {/* Overage snackbar */}
-      <Snackbar
-        open={overageSnackOpen}
-        autoHideDuration={10000}
-        onClose={handleOverageSnackClose}
-      >
+      <Snackbar open={overageSnackOpen} onClose={handleOverageSnackClose}>
         <Alert
           onClose={handleOverageSnackClose}
           severity={"error"}
