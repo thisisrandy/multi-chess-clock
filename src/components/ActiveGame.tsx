@@ -41,6 +41,7 @@ function formatTime(seconds: number): string {
  * Timer update interval in ms
  */
 const intervalPeriod = 100;
+const intervalPeriodSeconds = intervalPeriod / 1000;
 
 export default function ActiveGame({
   setGameActive,
@@ -56,7 +57,9 @@ export default function ActiveGame({
   const [overageSnackMessage, setOverageSnackMessage] = useState("");
 
   const handlePunchTimer = () => {
-    setPlayers((players) => [...players.slice(1, players.length), players[0]]);
+    const newPlayers = [...players.slice(1), players[0]];
+    newPlayers[0].timeLastTurn = 0;
+    setPlayers(newPlayers);
   };
   const handleGoBackward = () => {
     setPlayers((players) => [
@@ -78,7 +81,8 @@ export default function ActiveGame({
     const timer = setInterval(
       () =>
         setPlayers((players) => {
-          const timePlayed = players[0].timePlayed + intervalPeriod / 1000;
+          const timeLastTurn = players[0].timeLastTurn + intervalPeriodSeconds;
+          const timePlayed = players[0].timePlayed + intervalPeriodSeconds;
           let isOverTime = players[0].isOverTime;
           if (timePlayed > playTimeLimit * 60 && !isOverTime) {
             setOverageSnackMessage(
@@ -90,6 +94,7 @@ export default function ActiveGame({
           return [
             {
               ...players[0],
+              timeLastTurn,
               timePlayed,
               isOverTime,
             },
@@ -208,15 +213,19 @@ export default function ActiveGame({
             >
               <Typography variant="body1">{player.name}</Typography>
               <Typography variant="subtitle2">
-                {formatTime(player.timePlayed)}
-                {i === 0
-                  ? ` (${formatTime(
-                      players
-                        .map((p) => p.timePlayed)
-                        .reduce((acc, time) => acc + time, 0)
-                    )} total)`
-                  : ""}
+                {`${formatTime(player.timeLastTurn)} turn / ${formatTime(
+                  player.timePlayed
+                )} game`}
               </Typography>
+              {i === 0 && (
+                <Typography variant="subtitle2">
+                  {` (${formatTime(
+                    players
+                      .map((p) => p.timePlayed)
+                      .reduce((acc, time) => acc + time, 0)
+                  )} all players)`}
+                </Typography>
+              )}
             </Paper>
           ))}
         </div>

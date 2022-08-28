@@ -4,6 +4,10 @@ export interface Player {
    */
   name: string;
   /**
+   * The time taken in this player's most recent turn
+   */
+  timeLastTurn: number;
+  /**
    * The cumulative time that it has been this player's turn this game, in
    * seconds
    */

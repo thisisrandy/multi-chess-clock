@@ -44,7 +44,12 @@ export default function NewGame({
   };
   const handleStartNewGame = () => {
     setPlayers((players) =>
-      players.map((p) => ({ name: p.name, timePlayed: 0, isOverTime: false }))
+      players.map((p) => ({
+        ...p,
+        timeLastTurn: 0,
+        timePlayed: 0,
+        isOverTime: false,
+      }))
     );
     setGameActive(true);
     handleNewGameDialogClose();
@@ -52,7 +57,12 @@ export default function NewGame({
   const addPlayer = () => {
     setPlayers((players) => [
       ...players,
-      { name: newPlayerName, timePlayed: 0, isOverTime: false },
+      {
+        name: newPlayerName,
+        timeLastTurn: 0,
+        timePlayed: 0,
+        isOverTime: false,
+      },
     ]);
     handleAddPlayerDialogClose();
   };
