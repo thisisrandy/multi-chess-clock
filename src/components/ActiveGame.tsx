@@ -70,9 +70,7 @@ export default function ActiveGame({
   const handlePause = () => setTimerPaused((paused) => !paused);
   const handleCloseStopDialog = () => setStopDialogOpen(false);
   const handleStop = () => setGameActive(false);
-  const handleOverageSnackClose = () => {
-    setOverageSnackOpen(false);
-  };
+  const handleOverageSnackClose = () => setOverageSnackOpen(false);
 
   useEffect(() => {
     if (timerPaused) {
