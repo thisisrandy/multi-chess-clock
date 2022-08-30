@@ -34,6 +34,7 @@ export default function NewGame({
   const [addPlayerDialogOpen, setAddPlayerDialogOpen] = useState(false);
   const [newPlayerName, setNewPlayerName] = useState("");
   const [newPlayerNameIsValid, setNewPlayerNameIsValid] = useState(false);
+  const [newPlayerNameIsUnique, setNewPlayerNameIsUnique] = useState(false);
   const [playTimeIsValid, setPlayTimeIsValid] = useState(true);
 
   const handleNewGameDialogClose = () => setNewGameDialogOpen(false);
@@ -72,8 +73,20 @@ export default function NewGame({
     [playTimeLimit]
   );
   useEffect(
-    () => setNewPlayerNameIsValid(newPlayerName.length > 0),
-    [newPlayerName]
+    () =>
+      setNewPlayerNameIsUnique(
+        players
+          .map((p) => p.name !== newPlayerName)
+          .reduce((acc, eq) => acc && eq, true)
+      ),
+    [newPlayerName, players]
+  );
+  useEffect(
+    () =>
+      setNewPlayerNameIsValid(
+        newPlayerName.length > 0 && newPlayerNameIsUnique
+      ),
+    [newPlayerName, newPlayerNameIsUnique]
   );
 
   return (
@@ -192,6 +205,8 @@ export default function NewGame({
                 addPlayer();
               }
             }}
+            error={!newPlayerNameIsUnique}
+            helperText={!newPlayerNameIsUnique ? "Name already in use" : ""}
           />
         </DialogContent>
         <DialogActions
