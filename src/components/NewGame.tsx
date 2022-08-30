@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Player } from "../types/index";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import DragHandleIcon from "@mui/icons-material/DragHandle";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import {
   Button,
   Dialog,
@@ -15,6 +13,7 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
+import PlayersList from "./PlayersList";
 
 interface Props {
   players: Player[];
@@ -66,11 +65,6 @@ export default function NewGame({
     ]);
     handleAddPlayerDialogClose();
   };
-  const removePlayer = (index: number) =>
-    setPlayers((players) => [
-      ...players.slice(0, index),
-      ...players.slice(index + 1, players.length),
-    ]);
 
   useEffect(
     () =>
@@ -126,22 +120,7 @@ export default function NewGame({
             }}
           >
             <Typography variant="body1">Players</Typography>
-            {players.map((player, i) => (
-              <span
-                key={i}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <DragHandleIcon />
-                <Typography>{player.name}</Typography>
-                <IconButton onClick={() => removePlayer(i)}>
-                  <RemoveCircleIcon />
-                </IconButton>
-              </span>
-            ))}
+            <PlayersList {...{ players, setPlayers }} />
             <span style={{ display: "flex", justifyContent: "center" }}>
               <IconButton onClick={() => setAddPlayerDialogOpen(true)}>
                 <AddCircleIcon />
