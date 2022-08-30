@@ -1,5 +1,9 @@
 # Multi Chess Clock
 
+<p align="center">
+  <img alt="demo gif" src="demo.gif" />
+</p>
+
 Ever played a board game where one or two players dominate the time played with
 endless [analysis
 paralysis](https://boardgamegeek.com/thread/1165170/analysis-paralysis)? No
