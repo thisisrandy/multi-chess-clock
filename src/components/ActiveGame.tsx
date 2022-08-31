@@ -162,12 +162,22 @@ export default function ActiveGame({
               alignItems: "center",
             }}
           >
-            <Tooltip title="Return to the previous player" disableInteractive>
+            <Tooltip
+              title="Return to the previous player"
+              disableInteractive
+              placement="top"
+              arrow
+            >
               <IconButton onClick={handleGoBackward}>
                 <UndoIcon />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Reverse play order" disableInteractive>
+            <Tooltip
+              title="Reverse play order"
+              disableInteractive
+              placement="top"
+              arrow
+            >
               <IconButton onClick={handleReverseOrder}>
                 <SettingsBackupRestoreIcon />
               </IconButton>
@@ -175,12 +185,19 @@ export default function ActiveGame({
             <Tooltip
               title={timerPaused ? "Restart the timer" : "Pause the timer"}
               disableInteractive
+              placement="top"
+              arrow
             >
               <IconButton onClick={handlePause}>
                 {timerPaused ? <PlayCircleIcon /> : <PauseCircleIcon />}
               </IconButton>
             </Tooltip>
-            <Tooltip title="End the game" disableInteractive>
+            <Tooltip
+              title="End the game"
+              disableInteractive
+              placement="top"
+              arrow
+            >
               <IconButton
                 onClick={() => {
                   setTimerPaused(true);
