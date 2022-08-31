@@ -154,7 +154,6 @@ export default function NewGame({
               onChange={(e) => {
                 setPlayTimeLimit(Number(e.target.value));
               }}
-              /* FIXME: when this displays, it causes the dialog to expand */
               error={!playTimeIsValid}
               helperText={
                 playTimeIsValid
