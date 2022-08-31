@@ -18,6 +18,7 @@ import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import StopCircleIcon from "@mui/icons-material/StopCircle";
 import TimerIcon from "@mui/icons-material/Timer";
 import UndoIcon from "@mui/icons-material/Undo";
+import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
 
 interface Props {
   setGameActive: React.Dispatch<React.SetStateAction<boolean>>;
@@ -66,6 +67,9 @@ export default function ActiveGame({
       players[players.length - 1],
       ...players.slice(0, players.length - 1),
     ]);
+  };
+  const handleReverseOrder = () => {
+    setPlayers((players) => [players[0], ...players.slice(1).reverse()]);
   };
   const handlePause = () => setTimerPaused((paused) => !paused);
   const handleCloseStopDialog = () => setStopDialogOpen(false);
@@ -161,6 +165,11 @@ export default function ActiveGame({
             <Tooltip title="Return to the previous player" disableInteractive>
               <IconButton onClick={handleGoBackward}>
                 <UndoIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Reverse play order" disableInteractive>
+              <IconButton onClick={handleReverseOrder}>
+                <SettingsBackupRestoreIcon />
               </IconButton>
             </Tooltip>
             <Tooltip
