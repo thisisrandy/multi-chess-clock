@@ -149,7 +149,7 @@ export default function NewGame({
             }}
           >
             <TextField
-              label={"Play time per player"}
+              label={"Play time per player (minutes)"}
               value={playTimeLimit}
               onChange={(e) => {
                 setPlayTimeLimit(Number(e.target.value));
