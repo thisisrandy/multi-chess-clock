@@ -62,7 +62,7 @@ export default function PlayersList({ players, setPlayers }: Props) {
                         padding: 0,
                         borderRadius: 3,
                         backgroundColor: snapshot.isDragging ? "#696969" : "",
-                        // FIXME: this doens't seem to be working...
+                        // FIXME: this doesn't seem to be working...
                         transition: "background-color 0.5s ease",
                         ...provided.draggableProps.style,
                       }}
