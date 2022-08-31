@@ -59,7 +59,7 @@ export default function PlayersList({ players, setPlayers }: Props) {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "space-between",
-                        padding: "0 0 0 8px",
+                        padding: 0,
                         borderRadius: 3,
                         backgroundColor: snapshot.isDragging ? "#696969" : "",
                         // FIXME: this doens't seem to be working...
@@ -67,7 +67,7 @@ export default function PlayersList({ players, setPlayers }: Props) {
                         ...provided.draggableProps.style,
                       }}
                     >
-                      <DragHandleIcon />
+                      <DragHandleIcon style={{ marginLeft: 8 }} />
                       <Typography>{player.name}</Typography>
                       <IconButton onClick={() => removePlayer(i)}>
                         <RemoveCircleIcon />
