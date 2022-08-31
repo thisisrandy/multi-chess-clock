@@ -155,6 +155,7 @@ export default function NewGame({
                 setPlayTimeLimit(Number(e.target.value));
               }}
               /* FIXME: when this displays, it causes the dialog to expand */
+              error={!playTimeIsValid}
               helperText={
                 playTimeIsValid
                   ? null
